@@ -12,7 +12,9 @@
             Search
         </button>
         <button (click)="onResetSearch()" [disabled]="!isSearched()">Reset</button>
-
+        <button routerLink="/products/add">
+            Add Product
+        </button>
     </div>
 
     <!-- LOADER -->
@@ -54,8 +56,8 @@
 
                 <td>
                     <button [routerLink]="['/products', p.id]">View</button>
-                    <button>Edit</button>
-                    <button class="danger">
+                    <button [routerLink]="['/products', p.id, 'edit']">Edit</button>
+                    <button class="danger" (click)="deleteProduct(p.id)">
                         Delete
                     </button>
                 </td>

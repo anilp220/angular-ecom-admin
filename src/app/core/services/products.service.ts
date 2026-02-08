@@ -38,4 +38,24 @@ export class ProductsService {
       `${this.base}/${id}`
     );
   }
+
+  updateProduct(id: number, product: Product) {
+    return this.http.put<Product>(
+      `${this.base}/${id}`,
+      product
+    );
+  }
+
+  addProduct(product: Product) {
+    return this.http.post<Product>(
+      `${this.base}/add`,
+      product
+    );
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete<void>(
+      `${this.base}/${id}`
+    );
+  }
 }

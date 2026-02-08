@@ -1,1 +1,69 @@
-<p>add-edit works!</p>
+<div class="product-form">
+
+  <h2>
+    {{ isEditMode()
+        ? 'Edit Product'
+        : 'Add Product' }}
+  </h2>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()">
+
+    <!-- TITLE -->
+
+    <label>Title</label>
+    <input formControlName="title" />
+
+    <!-- PRICE -->
+
+    <label>Price</label>
+    <input
+      type="number"
+      formControlName="price" />
+
+    <!-- BRAND -->
+
+    <label>Brand</label>
+    <input formControlName="brand" />
+
+    <!-- CATEGORY -->
+
+    <label>Category</label>
+    <input formControlName="category" />
+
+    <!-- STOCK -->
+
+    <label>Stock</label>
+    <input
+      type="number"
+      formControlName="stock" />
+
+    <!-- IMAGE -->
+
+    <label>Thumbnail URL</label>
+    <input formControlName="thumbnail" />
+
+    <!-- DESCRIPTION -->
+
+    <label>Description</label>
+    <textarea
+      rows="4"
+      formControlName="description">
+    </textarea>
+
+    <!-- SUBMIT -->
+
+    <button
+      type="submit"
+      [disabled]="loading()">
+
+      {{ loading()
+          ? 'Saving...'
+          : 'Save Product' }}
+
+    </button>
+
+  </form>
+
+</div>

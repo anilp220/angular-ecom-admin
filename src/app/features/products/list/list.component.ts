@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule,FormsModule,PaginationComponent,RouterModule],
+  imports: [CommonModule, FormsModule, PaginationComponent, RouterModule],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   standalone: true
@@ -33,12 +33,12 @@ export class ListComponent implements OnInit {
 
   loadProducts() {
     this.loading.set(true);
-    
+
     const skip = (this.page - 1) * this.limit;
     this.currentPage.set(this.page);
 
-    const apiCall = this.search 
-      ? this.productService.searchProducts(this.search, this.limit, skip) 
+    const apiCall = this.search
+      ? this.productService.searchProducts(this.search, this.limit, skip)
       : this.productService.getProducts(this.limit, skip);
 
     apiCall.subscribe({
@@ -55,24 +55,24 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onResetSearch(){
+  onResetSearch() {
     this.search = '';
     this.loadProducts();
     this.isSearched.set(false);
   }
 
-  nextPage(){
+  nextPage() {
     this.page++;
     this.loadProducts();
   }
 
-  prevPage(){
-    if(this.page == 1) return;
+  prevPage() {
+    if (this.page == 1) return;
     this.page--;
     this.loadProducts();
   }
 
-  onSearch(){
+  onSearch() {
     this.page = 1;
     this.loadProducts();
     this.isSearched.set(true);
@@ -83,16 +83,14 @@ export class ListComponent implements OnInit {
     this.loadProducts();
   }
 
-  onPageChange(page: number){
+  onPageChange(page: number) {
     this.page = page;
     this.loadProducts();
   }
 
-  editProduct(id: number){
-    // Navigate to the product edit page
-  }
-
-  deleteProduct(id: number){
-    // Call the product service to delete the product
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.loadProducts();
+    });
   }
 }

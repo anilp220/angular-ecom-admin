@@ -1,0 +1,75 @@
+<div class="users">
+
+    <h2>Users</h2>
+
+    <!-- SEARCH -->
+
+    <div class="toolbar">
+
+        <input type="text" placeholder="Search users..." [(ngModel)]="search" (keyup.enter)="onSearch()" />
+
+        <button (click)="onSearch()">
+            Search
+        </button>
+
+        <button (click)="onResetSearch()" [disabled]="!isSearched()">Reset</button>
+    </div>
+
+    <!-- LOADER -->
+
+    <div *ngIf="loading()">
+        Loading users...
+    </div>
+
+    <!-- TABLE -->
+
+    <table *ngIf="!loading()">
+
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let u of users()">
+
+                <td>
+                    <img [src]="u.image" />
+                </td>
+
+                <td>
+                    {{ u.firstName }}
+                    {{ u.lastName }}
+                </td>
+
+                <td>{{ u.email }}</td>
+
+                <td>{{ u.phone }}</td>
+
+                <td>{{ u.gender }}</td>
+
+                <td>
+                    <button>
+                        View
+                    </button>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <!-- PAGINATION -->
+
+    <app-pagination [page]="page" [limit]="limit" [total]="total()" (pageChange)="onPageChange($event)">
+    </app-pagination>
+
+</div>

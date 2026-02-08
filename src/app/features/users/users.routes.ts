@@ -5,7 +5,7 @@ export const Users_Routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./list-component/list-component')
+      import('./list-component/list.component')
         .then(m => m.ListComponent)
   },
 

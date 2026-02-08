@@ -1,0 +1,111 @@
+<div class="carts">
+
+    <h2>Carts</h2>
+
+    <div *ngIf="loading()">
+        Loading carts...
+    </div>
+
+    <table *ngIf="!loading()">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Total Products</th>
+                <th>Total</th>
+                <th>Discounted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <ng-container *ngFor="let cart of carts()">
+
+                <!-- CART ROW -->
+
+                <tr>
+
+                    <td>{{ cart.id }}</td>
+
+                    <td>{{ cart.userId }}</td>
+
+                    <td>{{ cart.totalProducts }}</td>
+
+                    <td>₹ {{ cart.total }}</td>
+
+                    <td>₹ {{ cart.discountedTotal }}</td>
+
+                    <td>
+
+                        <button (click)="toggleExpand(cart.id)">
+
+                            {{ expandedCartId() === cart.id
+                            ? 'Hide'
+                            : 'View' }}
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <!-- EXPANDED PRODUCTS -->
+
+                <tr *ngIf="expandedCartId() === cart.id">
+
+                    <td colspan="6">
+
+                        <table class="nested">
+
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngFor="
+                    let p of cart.products
+                  ">
+
+                                    <td>
+                                        <img [src]="p.thumbnail" />
+                                    </td>
+
+                                    <td>{{ p.title }}</td>
+
+                                    <td>₹ {{ p.price }}</td>
+
+                                    <td>{{ p.quantity }}</td>
+
+                                    <td>₹ {{ p.total?.toFixed(2) }}</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </td>
+
+                </tr>
+
+            </ng-container>
+
+        </tbody>
+
+    </table>
+
+    <!-- PAGINATION -->
+
+    <app-pagination [page]="page" [limit]="limit" [total]="total()" (pageChange)="onPageChange($event)">
+    </app-pagination>
+
+</div>

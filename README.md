@@ -1,59 +1,282 @@
-# EcommerceAdmin
+# 🛒 Ecommerce Admin Panel — Angular (Standalone + Signals)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+A production-style ecommerce admin dashboard built using **latest Angular standalone architecture**, integrated with **DummyJSON APIs** for real data simulation.
 
-## Development server
+This project focuses on scalable admin architecture, reusable components, reactive UX, and enterprise frontend patterns.
 
-To start a local development server, run:
+---
+
+## 🚀 Tech Stack
+
+* **Angular (Latest — Standalone APIs)**
+* Signals for reactive state
+* Functional Guards & Interceptors
+* RxJS (debounce, switchMap, forkJoin)
+* SCSS
+* DummyJSON (Mock backend APIs)
+
+---
+
+## 📦 Features Implemented
+
+### 🔐 Authentication
+
+* Login via DummyJSON auth API
+* JWT token storage
+* Auth interceptor (header injection)
+* Route guards:
+
+  * `authGuard` → protects private routes
+  * `guestGuard` → blocks login for logged users
+* Logout flow
+* Header user profile display
+
+---
+
+### 🧭 Layout & Navigation
+
+* Admin layout shell
+* Sidebar navigation
+* Collapsible sidebar toggle
+* Header with user menu
+* Active route highlighting
+
+---
+
+### 📊 Dashboard
+
+* KPI cards:
+
+  * Total Products
+  * Total Users
+  * Total Carts
+  * Revenue aggregation
+* Parallel API execution using `forkJoin`
+* Fault-tolerant data handling
+
+---
+
+### 📦 Products Module (Full CRUD)
+
+* Products list table
+* Pagination (reusable component)
+* Amazon-style paginator UI
+* Reactive search (RxJS debounce)
+* Product details page
+* Add product form
+* Edit product form
+* Delete product flow
+* Confirmation handling
+
+---
+
+### 👥 Users Module
+
+* Users list table
+* Avatar display
+* Search + pagination
+* User profile details page
+* Nested data rendering:
+
+  * Address
+  * Company
+  * Bank info
+
+---
+
+### 🛒 Carts Module
+
+* Carts list
+* User cart totals
+* Discounted totals
+* Expandable relational view
+* Nested products table per cart
+
+---
+
+## ♻️ Reusable Components
+
+* Global pagination component
+* Windowed page logic + ellipsis
+* Amazon-style paginator UI
+* Global loader overlay
+* Toast notification system
+
+---
+
+## ⚙️ Global Infrastructure
+
+### Loader Interceptor
+
+* Tracks parallel API requests
+* Global spinner overlay
+* Request counter handling
+
+### Error Interceptor
+
+Handles:
+
+* 401 → session redirect
+* 500 → server error toast
+* Network failures
+
+### Toast Notification System
+
+* Success / Error / Info / Warning
+* Auto dismiss
+* Stackable alerts
+* Global service driven
+
+---
+
+## 🔎 Reactive Search
+
+Implemented using:
+
+* `FormControl`
+* `valueChanges`
+* `debounceTime`
+* `distinctUntilChanged`
+* `switchMap`
+
+Cancels stale API calls automatically.
+
+---
+
+## 📁 Folder Structure
+
+```
+src/app
+│
+├── core
+│   ├── services
+│   ├── interceptors
+│   ├── guards
+│
+├── shared
+│   ├── components
+│   │   ├── pagination
+│   │   ├── toast
+│   │   └── global-loader
+│
+├── layout
+│   ├── admin-layout
+│   ├── header
+│   └── sidebar
+│
+├── features
+│   ├── dashboard
+│   ├── products
+│   ├── users
+│   └── carts
+│
+└── app.routes.ts
+```
+
+---
+
+## 🧠 Architecture Highlights
+
+* Standalone component architecture
+* Functional DI via `inject()`
+* Signals for UI reactivity
+* Lazy loaded feature modules
+* Reusable UI primitives
+* Stateless shared components
+* Interceptor-driven infra
+
+---
+
+## 🔌 APIs Used
+
+DummyJSON endpoints:
+
+```
+POST   /auth/login
+GET    /auth/me
+
+GET    /products
+GET    /products/:id
+POST   /products/add
+PUT    /products/:id
+DELETE /products/:id
+
+GET    /users
+GET    /users/:id
+
+GET    /carts
+```
+
+Docs: [https://dummyjson.com](https://dummyjson.com)
+
+---
+
+## 🛠️ Local Setup
 
 ```bash
+# Clone repo
+git clone <repo-url>
+
+# Install deps
+npm install
+
+# Run dev server
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+App runs at:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## 🔑 Dummy Login Credentials
+
+Use DummyJSON test user:
+
+```
+Username: kminchelle
+Password: 0lelplR
 ```
 
-## Building
+---
 
-To build the project run:
+## 🧪 Future Enhancements
 
-```bash
-ng build
-```
+Planned roadmap:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* Orders module
+* Analytics charts
+* Role-based access
+* Image upload
+* Confirm dialog service
+* Node + Express backend
+* MongoDB integration
+* JWT refresh tokens
+* NGINX deployment
+* Dockerization
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 📦 Deployment (Upcoming)
 
-```bash
-ng test
-```
+Next phase will include:
 
-## Running end-to-end tests
+* Production build
+* NGINX hosting
+* Reverse proxy setup
+* API routing
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 📄 License
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+MIT — free to use and modify.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🙌 Author
+
+Built as an enterprise admin architecture learning project using modern Angular patterns.

@@ -1,0 +1,59 @@
+<div class="amazon-pagination"
+     *ngIf="totalPages > 1">
+
+  <!-- PREVIOUS -->
+
+  <button
+    class="nav-btn"
+    (click)="prev()"
+    [disabled]="page === 1">
+
+    ‹ Previous
+
+  </button>
+
+  <!-- PAGE NUMBERS -->
+
+  <div class="pages">
+
+    <ng-container
+      *ngFor="let p of displayPages">
+
+      <!-- NUMBER -->
+
+      <button
+        *ngIf="p !== '...'"
+        class="page-btn"
+        (click)="goToPage(p)"
+        [class.active]="p === page">
+
+        {{ p }}
+
+      </button>
+
+      <!-- DOTS -->
+
+      <span
+        *ngIf="p === '...'"
+        class="dots">
+
+        …
+
+      </span>
+
+    </ng-container>
+
+  </div>
+
+  <!-- NEXT -->
+
+  <button
+    class="nav-btn"
+    (click)="next()"
+    [disabled]="page === totalPages">
+
+    Next ›
+
+  </button>
+
+</div>

@@ -68,30 +68,8 @@
 
     <!-- PAGINATION -->
 
-    <div class="pagination" *ngIf="!loading()">
+    <app-pagination [page]="page" [limit]="limit" [total]="total()" (pageChange)="onPageChange($event)">
+    </app-pagination>
 
-        <button (click)="prevPage()" [disabled]="page === 1">
-
-            Prev
-
-        </button>
-
-        <div class="page-numbers">
-
-            <span class="page-number" *ngFor="let page of [].constructor(pageCount); let i = index" (click)="goToPage(i + 1)"
-                [class.active]="i + 1 === currentPage()">
-                {{ i + 1 }}
-            </span>
-
-        </div>
-
-
-        <button (click)="nextPage()" [disabled]="page * limit >= total()">
-
-            Next
-
-        </button>
-
-    </div>
 
 </div>

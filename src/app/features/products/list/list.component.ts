@@ -3,10 +3,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../../core/services/products.service';
 import { Product } from '../../../core/models/product.model';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,PaginationComponent],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   standalone: true
@@ -76,6 +77,11 @@ export class ListComponent implements OnInit {
   }
 
   goToPage(page: number) {
+    this.page = page;
+    this.loadProducts();
+  }
+
+  onPageChange(page: number){
     this.page = page;
     this.loadProducts();
   }

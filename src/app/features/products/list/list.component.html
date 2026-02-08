@@ -57,8 +57,10 @@
                 <td>
                     <button [routerLink]="['/products', p.id]">View</button>
                     <button [routerLink]="['/products', p.id, 'edit']">Edit</button>
-                    <button class="danger" (click)="deleteProduct(p.id)">
-                        Delete
+                    <button class="danger" (click)="confirmDelete(p.id)">
+                        {{ deletingId() === p.id
+                        ? 'Deleting...'
+                        : 'Delete' }}
                     </button>
                 </td>
 

@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
   total = signal(0);
   isSearched = signal(false);
   currentPage = signal(1);
+  deletingId = signal<number | null>(null);
 
   page = 1;
   limit = 10;
@@ -88,9 +89,41 @@ export class ListComponent implements OnInit {
     this.loadProducts();
   }
 
+  confirmDelete(id: number) {
+    const confirmed =
+      confirm(
+        'Are you sure you want to delete this product?'
+      );
+
+    if (!confirmed) return;
+
+    this.deleteProduct(id);
+  }
+
   deleteProduct(id: number) {
-    this.productService.deleteProduct(id).subscribe(() => {
-      this.loadProducts();
+    this.loading.set(true);
+    this.deletingId.set(id);
+
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        this.deletingId.set(null);
+        if (
+          this.products().length === 1 &&
+          this.page > 1
+        ) {
+          this.page--;
+        }
+        this.loadProducts();
+      },
+      error: () => {
+        alert(
+          'Failed to delete product'
+        );
+        this.deletingId.set(null);
+
+
+        this.loading.set(false);
+      }
     });
   }
 }

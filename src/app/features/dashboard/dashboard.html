@@ -1,1 +1,42 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+  <h2>Dashboard</h2>
+
+  <div *ngIf="loading()">
+    Loading stats...
+  </div>
+
+  <div class="cards"
+       *ngIf="!loading()">
+
+    <div class="card">
+
+      <h3>Products</h3>
+      <p>{{ stats().products }}</p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Users</h3>
+      <p>{{ stats().users }}</p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Carts</h3>
+      <p>{{ stats().carts }}</p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Revenue</h3>
+      <p>₹ {{ stats().revenue }}</p>
+
+    </div>
+
+  </div>
+
+</div>

@@ -56,7 +56,7 @@
                 <td>{{ u.gender }}</td>
 
                 <td>
-                    <button>
+                    <button [routerLink]="['/users', u.id]" class="primary">
                         View
                     </button>
                 </td>

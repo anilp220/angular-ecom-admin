@@ -14,6 +14,7 @@ import { UsersService }
 import { PaginationComponent }
   from '../../../shared/components/pagination/pagination.component';
 import { User } from '../../../core/models/user.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -21,7 +22,8 @@ import { User } from '../../../core/models/user.model';
   imports: [
     CommonModule,
     FormsModule,
-    PaginationComponent
+    PaginationComponent,
+    RouterModule
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']

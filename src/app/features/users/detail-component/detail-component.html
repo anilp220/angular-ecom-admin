@@ -1,1 +1,82 @@
-<p>detail-component works!</p>
+<div *ngIf="loading()">
+    Loading user...
+</div>
+
+<div class="user-details" *ngIf="!loading() && user() as u">
+
+    <!-- PROFILE HEADER -->
+
+    <div class="profile-header">
+
+        <img [src]="u.image" class="avatar" />
+
+        <div>
+
+            <h2>
+                {{ u.firstName }}
+                {{ u.lastName }}
+            </h2>
+
+            <p>{{ u.email }}</p>
+            <p>{{ u.phone }}</p>
+
+        </div>
+
+    </div>
+
+    <!-- INFO GRID -->
+
+    <div class="info-grid">
+
+        <!-- PERSONAL -->
+
+        <div class="card">
+
+            <h3>Personal Info</h3>
+
+            <p><strong>Age:</strong> {{ u.age }}</p>
+            <p><strong>Gender:</strong> {{ u.gender }}</p>
+            <p><strong>Birth Date:</strong> {{ u.birthDate }}</p>
+
+        </div>
+
+        <!-- ADDRESS -->
+
+        <div class="card">
+
+            <h3>Address</h3>
+
+            <p>{{ u.address.address }}</p>
+            <p>{{ u.address.city }}</p>
+            <p>{{ u.address.state }}</p>
+            <p>{{ u.address.postalCode }}</p>
+
+        </div>
+
+        <!-- COMPANY -->
+
+        <div class="card">
+
+            <h3>Company</h3>
+
+            <p><strong>Name:</strong> {{ u.company.name }}</p>
+            <p><strong>Department:</strong> {{ u.company.department }}</p>
+            <p><strong>Title:</strong> {{ u.company.title }}</p>
+
+        </div>
+
+        <!-- BANK -->
+
+        <div class="card">
+
+            <h3>Bank</h3>
+
+            <p><strong>Card:</strong> {{ u.bank.cardNumber }}</p>
+            <p><strong>Type:</strong> {{ u.bank.cardType }}</p>
+            <p><strong>Currency:</strong> {{ u.bank.currency }}</p>
+
+        </div>
+
+    </div>
+
+</div>

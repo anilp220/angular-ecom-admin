@@ -1,19 +1,19 @@
 # 🛒 Ecommerce Admin Panel — Angular (Standalone + Signals)
 
-A production-style ecommerce admin dashboard built using **latest Angular standalone architecture**, integrated with **DummyJSON APIs** for real data simulation.
+A production-style ecommerce admin dashboard built using **latest Angular standalone architecture**, integrated with **DummyJSON APIs** for realistic backend simulation.
 
-This project focuses on scalable admin architecture, reusable components, reactive UX, and enterprise frontend patterns.
+This project focuses on scalable admin architecture, reusable UI components, reactive UX, and enterprise frontend infrastructure patterns.
 
 ---
 
 ## 🚀 Tech Stack
 
-* **Angular (Latest — Standalone APIs)**
+* Angular (Latest — Standalone APIs)
 * Signals for reactive state
 * Functional Guards & Interceptors
 * RxJS (debounce, switchMap, forkJoin)
 * SCSS
-* DummyJSON (Mock backend APIs)
+* DummyJSON APIs
 
 ---
 
@@ -27,7 +27,7 @@ This project focuses on scalable admin architecture, reusable components, reacti
 * Route guards:
 
   * `authGuard` → protects private routes
-  * `guestGuard` → blocks login for logged users
+  * `guestGuard` → blocks login for authenticated users
 * Logout flow
 * Header user profile display
 
@@ -66,7 +66,6 @@ This project focuses on scalable admin architecture, reusable components, reacti
 * Add product form
 * Edit product form
 * Delete product flow
-* Confirmation handling
 
 ---
 
@@ -90,7 +89,7 @@ This project focuses on scalable admin architecture, reusable components, reacti
 * User cart totals
 * Discounted totals
 * Expandable relational view
-* Nested products table per cart
+* Nested products table
 
 ---
 
@@ -125,7 +124,7 @@ Handles:
 * Success / Error / Info / Warning
 * Auto dismiss
 * Stackable alerts
-* Global service driven
+* Service driven
 
 ---
 
@@ -175,18 +174,6 @@ src/app
 
 ---
 
-## 🧠 Architecture Highlights
-
-* Standalone component architecture
-* Functional DI via `inject()`
-* Signals for UI reactivity
-* Lazy loaded feature modules
-* Reusable UI primitives
-* Stateless shared components
-* Interceptor-driven infra
-
----
-
 ## 🔌 APIs Used
 
 DummyJSON endpoints:
@@ -211,16 +198,11 @@ Docs: [https://dummyjson.com](https://dummyjson.com)
 
 ---
 
-## 🛠️ Local Setup
+# 🛠️ Local Setup
 
 ```bash
-# Clone repo
 git clone <repo-url>
-
-# Install deps
 npm install
-
-# Run dev server
 ng serve
 ```
 
@@ -232,9 +214,7 @@ http://localhost:4200
 
 ---
 
-## 🔑 Dummy Login Credentials
-
-Use DummyJSON test user:
+# 🔑 Dummy Login Credentials
 
 ```
 Username: kminchelle
@@ -243,7 +223,160 @@ Password: 0lelplR
 
 ---
 
-## 🧪 Future Enhancements
+# 🚀 Local Deployment Using NGINX
+
+This project can be deployed locally using NGINX to simulate a production environment.
+
+---
+
+## Step 1 — Create Production Build
+
+```bash
+ng build --configuration production
+```
+
+Build output:
+
+```
+dist/<project-name>/browser/
+```
+
+Contains deployable static files.
+
+---
+
+## Step 2 — Install NGINX
+
+### macOS
+
+```bash
+brew install nginx
+brew services start nginx
+```
+
+### Ubuntu / Linux
+
+```bash
+sudo apt update
+sudo apt install nginx
+sudo systemctl start nginx
+```
+
+---
+
+## Step 3 — Copy Angular Build to NGINX Root
+
+### macOS
+
+```bash
+cp -r dist/<project-name>/browser/* \
+/opt/homebrew/var/www/
+```
+
+### Linux
+
+```bash
+sudo cp -r dist/<project-name>/browser/* \
+/var/www/html/
+```
+
+---
+
+## Step 4 — Configure SPA Routing
+
+Edit NGINX config:
+
+### macOS
+
+```
+/opt/homebrew/etc/nginx/nginx.conf
+```
+
+### Linux
+
+```
+/etc/nginx/sites-available/default
+```
+
+---
+
+### Server Configuration
+
+```nginx
+server {
+
+  listen 8080;
+  server_name localhost;
+
+  root /opt/homebrew/var/www;   # adjust path
+  index index.html;
+
+  location / {
+
+    try_files $uri
+               $uri/
+               /index.html;
+
+  }
+
+}
+```
+
+Linux path example:
+
+```nginx
+root /var/www/html;
+```
+
+---
+
+## Step 5 — Restart NGINX
+
+### macOS
+
+```bash
+brew services restart nginx
+```
+
+### Linux
+
+```bash
+sudo systemctl restart nginx
+```
+
+---
+
+## Step 6 — Verify Deployment
+
+Open browser:
+
+```
+http://localhost:8080
+```
+
+Test SPA routes:
+
+```
+/dashboard
+/products
+/users
+/carts
+```
+
+Refresh page to confirm routing works.
+
+---
+
+# 🧠 Deployment Notes
+
+* Angular builds static files
+* NGINX serves them as web assets
+* `try_files` ensures SPA routing works
+* Same setup scales to cloud deployment
+
+---
+
+# 🧪 Future Enhancements
 
 Planned roadmap:
 
@@ -255,28 +388,17 @@ Planned roadmap:
 * Node + Express backend
 * MongoDB integration
 * JWT refresh tokens
-* NGINX deployment
+* AWS / Cloud deployment
 * Dockerization
 
 ---
 
-## 📦 Deployment (Upcoming)
-
-Next phase will include:
-
-* Production build
-* NGINX hosting
-* Reverse proxy setup
-* API routing
-
----
-
-## 📄 License
+# 📄 License
 
 MIT — free to use and modify.
 
 ---
 
-## 🙌 Author
+# 🙌 Author
 
-Built as an enterprise admin architecture learning project using modern Angular patterns.
+Built as an enterprise admin architecture learning project using modern Angular patterns and deployment practices.

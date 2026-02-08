@@ -6,9 +6,11 @@ import { Router } from '@angular/router';
 
 import { catchError, throwError }
   from 'rxjs';
+import { ToastService } from '../services/toast.service';
 
 export const errorInterceptor:
   HttpInterceptorFn = (req, next) => {
+    const toast = inject(ToastService);
 
     const router = inject(Router);
 
@@ -19,6 +21,10 @@ export const errorInterceptor:
         // ---------- 401 ----------
 
         if (error.status === 401) {
+          toast.show(
+            'Session expired',
+            'warning'
+          );
 
           router.navigateByUrl('/login');
 
@@ -28,8 +34,9 @@ export const errorInterceptor:
 
         if (error.status >= 500) {
 
-          alert(
-            'Server error occurred'
+          toast.show(
+            'Server error occurred',
+            'error'
           );
 
         }
@@ -38,8 +45,9 @@ export const errorInterceptor:
 
         if (error.status === 0) {
 
-          alert(
-            'Network error'
+          toast.show(
+            'Network error',
+            'error'
           );
 
         }

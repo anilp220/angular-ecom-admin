@@ -5,6 +5,7 @@ import { ProductsService } from '../../../core/services/products.service';
 import { Product, ProductResponse } from '../../../core/models/product.model';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { RouterModule } from '@angular/router';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ListComponent implements OnInit {
   private productService = inject(ProductsService);
+  private toastService = inject(ToastService);
 
   products = signal<Product[]>([]);
   loading = signal(true);
@@ -113,11 +115,16 @@ export class ListComponent implements OnInit {
         ) {
           this.page--;
         }
+        this.toastService.show(
+          'Product deleted',
+          'success'
+        );
         this.loadProducts();
       },
       error: () => {
-        alert(
-          'Failed to delete product'
+        this.toastService.show(
+          'Failed to delete product',
+          'error'
         );
         this.deletingId.set(null);
 

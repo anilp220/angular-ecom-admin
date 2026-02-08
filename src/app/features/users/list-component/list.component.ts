@@ -129,6 +129,28 @@ export class ListComponent implements OnInit {
 
   onPageChange(p: number) {
     this.page = p;
-    this.loadUsers();
+    const query =
+      this.searchControl.value;
+
+    const skip =
+      (this.page - 1) * this.limit;
+
+    const apiCall = query
+      ? this.service.searchUsers(
+        query,
+        this.limit,
+        skip
+      )
+      : this.service.getUsers(
+        this.limit,
+        skip
+      );
+
+    apiCall.subscribe((res) => {
+
+      this.users.set(res.users);
+      this.total.set(res.total);
+
+    });
   }
 }

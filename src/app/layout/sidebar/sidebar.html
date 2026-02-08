@@ -1,7 +1,31 @@
-<a *ngFor="let item of menu"
-   [routerLink]="item.route"
-   routerLinkActive="active">
+<aside class="sidebar"
+       [class.collapsed]="collapsed">
 
-  {{ item.label }}
+  <div class="logo">
+    <span *ngIf="!collapsed">Admin</span>
+    <span *ngIf="collapsed">A</span>
+  </div>
 
-</a>
+  <nav>
+
+    <a *ngFor="let item of menu"
+       [routerLink]="item.route"
+       routerLinkActive="active"
+       class="menu-item">
+
+      <span class="icon">
+        {{ item.icon }}
+      </span>
+
+      <span class="label"
+            *ngIf="!collapsed">
+
+        {{ item.label }}
+
+      </span>
+
+    </a>
+
+  </nav>
+
+</aside>

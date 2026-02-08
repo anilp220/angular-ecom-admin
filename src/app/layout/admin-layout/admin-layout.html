@@ -1,12 +1,12 @@
-<div class="admin-layout">
+<div class="layout">
 
-  <app-sidebar />
+  <app-sidebar [collapsed]="!sidebarOpen" />
 
   <div class="main">
 
-    <app-header />
+    <app-header (menuToggle)="toggleSidebar()"/>
 
-    <div class="page">
+    <div class="content">
       <router-outlet />
     </div>
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MENU_ITEMS } from './menu.config';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,5 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
+  @Input() collapsed = false;
+
   menu = MENU_ITEMS;
 }

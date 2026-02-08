@@ -1,1 +1,33 @@
-<p>header works!</p>
+<header class="header">
+
+  <div class="left">
+
+    <button
+      class="menu-btn"
+      (click)="toggleMenu()">
+
+      ☰
+
+    </button>
+
+    <h3>Admin Panel</h3>
+
+  </div>
+
+  <div class="right"
+       *ngIf="user() as u">
+
+    <img [src]="u.image"
+         class="avatar" />
+
+    <span>
+      {{ u.firstName }}
+    </span>
+
+    <button (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
+</header>

@@ -1,14 +1,14 @@
 export const MENU_ITEMS = [
 
-  { label: 'Dashboard', icon: 'pi pi-home', route: '/dashboard' },
+  { label: 'Dashboard', icon: '📊', route: '/dashboard' },
 
-  { label: 'Products', icon: 'pi pi-box', route: '/products' },
+  { label: 'Products', icon: '📦', route: '/products' },
 
-  { label: 'Users', icon: 'pi pi-users', route: '/users' },
+  { label: 'Users', icon: '👥', route: '/users' },
 
-  { label: 'Carts', icon: 'pi pi-shopping-cart', route: '/carts' },
+  { label: 'Carts', icon: '🛒', route: '/carts' },
 
-  { label: 'Orders', icon: 'pi pi-list', route: '/orders' },
+  { label: 'Orders', icon: '📑', route: '/orders' },
 
-  { label: 'Settings', icon: 'pi pi-cog', route: '/settings' }
+  { label: 'Settings', icon: '⚙️', route: '/settings' }
 ];

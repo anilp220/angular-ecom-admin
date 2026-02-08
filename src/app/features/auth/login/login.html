@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <form [formGroup]="form"
+        (ngSubmit)="login()"
+        class="login-card">
+
+    <h2>Admin Login</h2>
+
+    <input
+      type="text"
+      placeholder="Username"
+      formControlName="username" />
+
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password" />
+
+    <button type="submit"
+            [disabled]="loading">
+
+      {{ loading ? 'Logging in...' : 'Login' }}
+
+    </button>
+
+    <p class="error" *ngIf="errorMsg">
+      {{ errorMsg }}
+    </p>
+
+  </form>
+
+</div>

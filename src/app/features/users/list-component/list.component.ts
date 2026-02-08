@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UsersService }
   from '../../../core/services/users.service';
@@ -15,6 +15,12 @@ import { PaginationComponent }
   from '../../../shared/components/pagination/pagination.component';
 import { User } from '../../../core/models/user.model';
 import { RouterModule } from '@angular/router';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap
+} from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -23,7 +29,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     PaginationComponent,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
@@ -31,6 +38,8 @@ import { RouterModule } from '@angular/router';
 export class ListComponent implements OnInit {
 
   private service = inject(UsersService);
+  searchControl =
+    new FormControl('');
 
   users = signal<User[]>([]);
   total = signal(0);
@@ -43,6 +52,39 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(100),
+        distinctUntilChanged(),
+        tap(() => {
+          this.page = 1;
+          this.loading.set(true);
+        }),
+        switchMap((query) => {
+          const skip =
+            (this.page - 1) * this.limit;
+
+          if (!query) {
+
+            return this.service.getUsers(
+              this.limit,
+              skip
+            );
+          }
+
+          return this.service.searchUsers(
+            query,
+            this.limit,
+            skip
+          );
+        })
+      )
+      .subscribe((res) => {
+        this.users.set(res.users);
+        this.total.set(res.total);
+        this.loading.set(false);
+        this.isSearched.set(!!this.searchControl.value);
+      });
   }
 
   loadUsers() {
@@ -79,7 +121,7 @@ export class ListComponent implements OnInit {
   }
 
   onResetSearch() {
-    this.search = '';
+    this.searchControl.setValue('');
     this.page = 1;
     this.isSearched.set(false);
     this.loadUsers();

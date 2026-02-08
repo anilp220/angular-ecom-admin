@@ -6,11 +6,11 @@
 
     <div class="toolbar">
 
-        <input type="text" placeholder="Search users..." [(ngModel)]="search" (keyup.enter)="onSearch()" />
-
-        <button (click)="onSearch()">
+        <!-- <input type="text" placeholder="Search users..." [(ngModel)]="search" (keyup.enter)="onSearch()" /> -->
+        <input type="text" placeholder="Search users..." [formControl]="searchControl" />
+        <!-- <button (click)="onSearch()">
             Search
-        </button>
+        </button> -->
 
         <button (click)="onResetSearch()" [disabled]="!isSearched()">Reset</button>
     </div>

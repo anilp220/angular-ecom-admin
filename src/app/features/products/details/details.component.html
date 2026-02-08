@@ -1,1 +1,70 @@
-<p>details works!</p>
+<div class="product-details"
+     *ngIf="!loading() && product() as p">
+
+  <!-- TITLE -->
+
+  <h2>{{ p.title }}</h2>
+
+  <!-- CONTENT -->
+
+  <div class="details-layout">
+
+    <!-- IMAGE GALLERY -->
+
+    <div class="images">
+
+      <img
+        class="main-img"
+        [src]="p.thumbnail" />
+
+      <div class="thumbs">
+
+        <img
+          *ngFor="let img of p.images"
+          [src]="img" (click)="onThumbnailClick(img)"/>
+
+      </div>
+
+    </div>
+
+    <!-- INFO -->
+
+    <div class="info">
+
+      <p class="price">
+        ₹ {{ p.price }}
+      </p>
+
+      <p>
+        <strong>Brand:</strong>
+        {{ p.brand }}
+      </p>
+
+      <p>
+        <strong>Category:</strong>
+        {{ p.category }}
+      </p>
+
+      <p>
+        <strong>Stock:</strong>
+        {{ p.stock }}
+      </p>
+
+      <p>
+        <strong>Rating:</strong>
+        ⭐ {{ p.rating }}
+      </p>
+
+      <p class="desc">
+        {{ p.description }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="loading()">
+  Loading product...
+</div>

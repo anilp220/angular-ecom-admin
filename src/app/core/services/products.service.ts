@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../models/product.model';
+import { Product, ProductResponse } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -16,7 +16,7 @@ export class ProductsService {
     limit = 10,
     skip = 0
   ) {
-    return this.http.get<Product[]>(
+    return this.http.get<ProductResponse>(
       `${this.base}?limit=${limit}&skip=${skip}`
     );
   }
@@ -28,9 +28,14 @@ export class ProductsService {
     limit = 10,
     skip = 0
   ) {
-    return this.http.get<any>(
+    return this.http.get<ProductResponse>(
       `${this.base}/search?q=${query}&limit=${limit}&skip=${skip}`
     );
   }
 
+  getProductById(id: number) {
+    return this.http.get<Product>(
+      `${this.base}/${id}`
+    );
+  }
 }

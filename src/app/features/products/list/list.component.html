@@ -53,7 +53,7 @@
                 <td>{{ p.brand }}</td>
 
                 <td>
-                    <button>View</button>
+                    <button [routerLink]="['/products', p.id]">View</button>
                     <button>Edit</button>
                     <button class="danger">
                         Delete

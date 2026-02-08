@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../../core/services/products.service';
-import { Product } from '../../../core/models/product.model';
+import { Product, ProductResponse } from '../../../core/models/product.model';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule,FormsModule,PaginationComponent],
+  imports: [CommonModule,FormsModule,PaginationComponent,RouterModule],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   standalone: true
@@ -41,7 +42,8 @@ export class ListComponent implements OnInit {
       : this.productService.getProducts(this.limit, skip);
 
     apiCall.subscribe({
-      next: (res) => {
+      next: (res: ProductResponse) => {
+        console.log(res);
         this.products.set(res.products);
         this.total.set(res.total);
         this.loading.set(false);
@@ -84,5 +86,13 @@ export class ListComponent implements OnInit {
   onPageChange(page: number){
     this.page = page;
     this.loadProducts();
+  }
+
+  editProduct(id: number){
+    // Navigate to the product edit page
+  }
+
+  deleteProduct(id: number){
+    // Call the product service to delete the product
   }
 }

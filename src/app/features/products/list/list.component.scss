@@ -1,0 +1,64 @@
+.products {
+    h2 {
+        margin-bottom: 20px;
+    }
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    width: 250px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button.danger {
+    background: #ef4444;
+    color: white;
+}
+
+.page-number{
+    padding: 8px 12px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.active {
+        background: #007bff;
+        color: white;
+    }
+}
+
+.page-numbers {
+    display: flex;
+    overflow: auto;
+}

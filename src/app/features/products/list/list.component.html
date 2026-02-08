@@ -1,1 +1,97 @@
-<p>list works!</p>
+<div class="products">
+
+    <h2>Products</h2>
+
+    <!-- SEARCH -->
+
+    <div class="toolbar">
+
+        <input type="text" placeholder="Search products..." [(ngModel)]="search" (keyup.enter)="onSearch()" />
+
+        <button (click)="onSearch()">
+            Search
+        </button>
+        <button (click)="onResetSearch()" [disabled]="!isSearched()">Reset</button>
+
+    </div>
+
+    <!-- LOADER -->
+
+    <div *ngIf="loading()">
+        Loading products...
+    </div>
+
+    <!-- TABLE -->
+
+    <table *ngIf="!loading()">
+
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Brand</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let p of products()">
+
+                <td>
+                    <img [src]="p.thumbnail" />
+                </td>
+
+                <td>{{ p.title }}</td>
+
+                <td>₹ {{ p.price }}</td>
+
+                <td>{{ p.stock }}</td>
+
+                <td>{{ p.brand }}</td>
+
+                <td>
+                    <button>View</button>
+                    <button>Edit</button>
+                    <button class="danger">
+                        Delete
+                    </button>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <!-- PAGINATION -->
+
+    <div class="pagination" *ngIf="!loading()">
+
+        <button (click)="prevPage()" [disabled]="page === 1">
+
+            Prev
+
+        </button>
+
+        <div class="page-numbers">
+
+            <span class="page-number" *ngFor="let page of [].constructor(pageCount); let i = index" (click)="goToPage(i + 1)"
+                [class.active]="i + 1 === currentPage()">
+                {{ i + 1 }}
+            </span>
+
+        </div>
+
+
+        <button (click)="nextPage()" [disabled]="page * limit >= total()">
+
+            Next
+
+        </button>
+
+    </div>
+
+</div>
